@@ -1,0 +1,18 @@
+# Ne jamais publier de secrets ou d'exports bruts
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+*secret*
+*password*
+**/clients.conf
+**/authorize
+**/config.boot
+**/*.backup
+**/*.sensitive.rsc
+**/private/
+**/captures-brutes/
+.DS_Store
+Thumbs.db

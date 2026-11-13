@@ -1,0 +1,41 @@
+# RouterOS 7.x — commandes de référence à exécuter PAR BLOCS, pas un import aveugle.
+# Préserver VLANs, DHCP, routes et règles forward du TP2.1.
+# AVANT : snapshot, console EVE-NG, une nouvelle session SSH et test utilisateur secours.
+/user add name=secours group=full password="REMPLACER_MDP_SECOURS"
+# Tester une NOUVELLE connexion secours AVANT de poursuivre.
+# /user disable [find name=admin]
+# Ensuite passer en Safe Mode Ctrl+X sur la console pour le reste.
+/ip service disable [find name=telnet]
+/ip service disable [find name=ftp]
+/ip service disable [find name=www]
+/ip service disable [find name=www-ssl]
+/ip service disable [find name=api]
+/ip service disable [find name=api-ssl]
+/ip service set [find name=ssh] address=10.10.99.20/32
+/ip service set [find name=winbox] address=10.10.99.20/32
+/radius add service=login address=10.10.99.20 secret="REMPLACER_SECRET_MIKROTIK" src-address=172.16.12.2
+/user aaa set use-radius=yes default-group=read
+/system clock set time-zone-name=Africa/Douala
+/system ntp client set enabled=yes
+/system ntp client servers add address=10.10.99.20
+/system logging action add name=admin-syslog target=remote remote=10.10.99.20 remote-port=514 src-address=172.16.12.2
+/system logging add topics=info action=admin-syslog
+/system logging add topics=warning action=admin-syslog
+/system logging add topics=error action=admin-syslog
+/system logging add topics=account action=admin-syslog
+# Strict rp-filter n'est pas adapté aux routes asymétriques; vérifier les routes du TP0.1.
+/ip settings set rp-filter=strict
+/tool mac-server set allowed-interface-list=none
+/tool mac-server mac-winbox set allowed-interface-list=none
+/ip neighbor discovery-settings set discover-interface-list=none
+# !!! RÈGLES INPUT : vérifier dans quel ordre elles seront placées et les règles existantes.
+# Elles doivent être au-dessus de toute règle finale de refus, sans casser DHCP.
+/ip firewall filter add chain=input action=accept connection-state=established,related comment="TP3 INPUT established"
+/ip firewall filter add chain=input action=drop connection-state=invalid comment="TP3 INPUT invalid"
+/ip firewall filter add chain=input action=accept protocol=tcp src-address=10.10.99.20 dst-port=22,8291 comment="TP3 administration"
+/ip firewall filter add chain=input action=accept protocol=udp src-address=10.10.99.20 dst-port=123 comment="TP3 NTP si nécessaire"
+/ip firewall filter add chain=input action=accept protocol=udp src-port=67 dst-port=67,68 comment="TP3 DHCP serveur — confirmer l'interface/VLAN"
+/ip firewall filter add chain=input action=accept protocol=icmp comment="TP3 ICMP diagnostic"
+# APRÈS vérification de l'ordre, ajouter une règle de fin INPUT :
+# /ip firewall filter add chain=input action=drop log=yes log-prefix="INPUT-REFUS " comment="TP3 refus final"
+# Quitter Safe Mode Ctrl+X seulement après réussite des tests et sauvegarder un export nettoyé.

@@ -1,0 +1,12 @@
+network:
+  version: 2
+  ethernets:
+    ens3:  # Vérifier le nom avec `ip -br link` ; peut être ens160 ou autre
+      dhcp4: false
+      addresses: [10.10.99.20/24]
+      routes:
+        - to: default
+          via: 10.10.99.1
+      nameservers:
+        addresses: [1.1.1.1]
+# Dans le lab isolé, DNS externe injoignable ; non nécessaire aux tests locaux.

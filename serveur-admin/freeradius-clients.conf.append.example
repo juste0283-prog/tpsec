@@ -1,0 +1,13 @@
+# Ajouter au fichier clients.conf, en substituant trois secrets distincts SUR LE SERVEUR.
+client cisco_siege {
+ ipaddr = 10.10.99.1
+ secret = REMPLACER_SECRET_CISCO
+}
+client mikrotik_dla {
+ ipaddr = 172.16.12.2
+ secret = REMPLACER_SECRET_MIKROTIK
+}
+client vyos_fai {
+ ipaddr = 198.51.100.1
+ secret = REMPLACER_SECRET_VYOS
+}

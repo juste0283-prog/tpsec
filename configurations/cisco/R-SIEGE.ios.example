@@ -1,0 +1,55 @@
+! Cisco IOSv — gabarit en blocs. Syntaxe et algorithmes dépendants de l'image IOSv.
+! Préparatifs : console ouverte ; snapshot ; conserver la configuration de départ.
+! Activer `reload in 10` AVANT de modifier VTY/AAA ; ne pas `write memory` avant vérifications.
+configure terminal
+hostname R-SIEGE
+interface GigabitEthernet0/3
+ description RESEAU_ADMINISTRATION
+ ip address 10.10.99.1 255.255.255.0
+ no shutdown
+exit
+ip domain-name lab.local
+username secours privilege 15 secret REMPLACER_MDP_LOCAL
+ip ssh version 2
+! En mode privilegié EXEC : `crypto key generate rsa modulus 3072`
+! La commande RSA doit être lancée séparément après domaine/hostname si nécessaire.
+ip access-list standard ADMIN-SOURCES
+ permit 10.10.99.0 0.0.0.255
+ deny any log
+exit
+line vty 0 4
+ transport input ssh
+ access-class ADMIN-SOURCES in
+ login authentication default
+exit
+! Vérifier disponibilité des commandes AAA sur votre build IOSv.
+aaa new-model
+radius server SRV-ADMIN
+ address ipv4 10.10.99.20 auth-port 1812 acct-port 1813
+ key REMPLACER_SECRET_CISCO
+exit
+aaa authentication login default group radius local
+aaa authorization exec default group radius local if-authenticated
+! SNMPv3 authPriv : les mots de passe réels ne doivent pas être dans Git.
+snmp-server group SECURE v3 priv
+snmp-server user supervision SECURE v3 auth sha REMPLACER_MDP_AUTH priv aes 128 REMPLACER_MDP_PRIV
+no snmp-server community public
+no snmp-server community private
+logging host 10.10.99.20
+logging source-interface GigabitEthernet0/3
+service timestamps log datetime msec localtime show-timezone
+archive
+ log config
+  logging enable
+  notify syslog contenttype plaintext
+ exit
+exit
+ntp server 10.10.99.20
+ntp source GigabitEthernet0/3
+clock timezone WAT 1 0
+banner motd ^CAcces reserve aux personnes autorisees. Toute action est journalisee.^C
+! La liste WAN-ANTI-USURPATION et uRPF doivent être ajoutés selon la topologie/fiche 3.7 réelle,
+! après avoir confirmé l'interface WAN et les routes. Ne pas inventer la liste ACL officielle.
+end
+! Tester SSH autorise / refuse, AAA, repli local, SNMP, syslog, NTP, anti-spoofing.
+! Enfin : reload cancel ; write memory.

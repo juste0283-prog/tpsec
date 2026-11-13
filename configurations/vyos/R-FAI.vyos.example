@@ -1,0 +1,19 @@
+# VyOS 1.4 — exécuter en console `configure`, puis commandes ci-dessous dans l'ordre.
+# Ne PAS effacer l'utilisateur vyos avant de tester un nouveau secours.
+set system login user secours authentication plaintext-password 'REMPLACER_MDP_SECOURS'
+set system login radius server 10.10.99.20 key 'REMPLACER_SECRET_VYOS'
+set system login radius server 10.10.99.20 port '1812'
+set system login radius server 10.10.99.20 timeout '3'
+set system login radius source-address '198.51.100.1'
+set system time-zone 'Africa/Douala'
+set service ssh port '22'
+set service ssh listen-address '198.51.100.1'
+set system syslog host 10.10.99.20 facility all level info
+set service ntp server 10.10.99.20
+# Ne filtrer l'accès distant qu'APRÈS avoir validé les règles firewall de votre image 1.4.
+# Confirmer interface d'entrée WAN et source-validation / asymétrie.
+# `commit-confirm 10` puis tester SSH secours ET RADIUS depuis SRV-ADMIN.
+# Après réussite : `confirm`, ensuite `save`.
+# Pour enlever le compte vyos, après accès confirmé :
+# delete system login user vyos
+# commit-confirm 10 ; re-tester ; confirm ; save.
