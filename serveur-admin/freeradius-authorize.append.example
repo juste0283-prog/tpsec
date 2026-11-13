@@ -1,0 +1,14 @@
+# Exemple local uniquement, insérer dans mods-config/files/authorize.
+# Utiliser de VRAIS mots de passe générés hors dépôt ; le fichier effectif reste privé.
+wilfried.admin Cleartext-Password := "REMPLACER_MDP_WILFRIED"
+    Cisco-AVPair = "shell:priv-lvl=15",
+    Mikrotik-Group = "full"
+
+arnauld.admin Cleartext-Password := "REMPLACER_MDP_ARNAULD"
+    Cisco-AVPair = "shell:priv-lvl=15",
+    Mikrotik-Group = "full"
+
+# Pour TP3.4 seulement, ajouter prestataire.temp puis le retirer réellement :
+# prestataire.temp Cleartext-Password := "REMPLACER_MDP_TEMPORAIRE"
+#     Cisco-AVPair = "shell:priv-lvl=15",
+#     Mikrotik-Group = "full"

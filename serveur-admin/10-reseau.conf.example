@@ -1,0 +1,7 @@
+module(load="imudp")
+input(type="imudp" port="514")
+template(name="ParEquipement" type="string" string="/var/log/reseau/%FROMHOST-IP%.log")
+if $fromhost-ip != "127.0.0.1" then {
+  action(type="omfile" dynaFile="ParEquipement")
+  stop
+}

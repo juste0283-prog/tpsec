@@ -1,0 +1,7 @@
+# Ajouter à /etc/chrony/chrony.conf (ne pas supprimer les réglages existants sans les étudier)
+local stratum 8
+allow 10.0.0.0/8
+allow 172.16.0.0/12
+allow 198.51.100.0/24
+# Le TP exige une clé NTP MD5 : la configuration de l'authentification côté client et
+# serveur dépend des capacités réelles des images. Tester et signaler les incompatibilités.
