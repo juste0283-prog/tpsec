@@ -1,0 +1,32 @@
+SW-CORE>en
+SW-CORE#sh ip access-lists
+Extended IP access list ACL-GUICHETS-IN
+    10 permit tcp 10.10.20.0 0.0.0.255 host 10.10.100.15 eq 443 (1
+6 matches)
+    20 permit udp 10.10.20.0 0.0.0.255 host 10.10.100.10 eq domain
+    30 permit tcp 10.10.20.0 0.0.0.255 host 10.10.100.10 eq domain
+    40 permit icmp 10.10.20.0 0.0.0.255 host 10.10.20.1 echo (30 m
+atches)
+    50 deny ip any any log (481 matches)
+Extended IP access list ACL-SENSIBLE-OUT
+    10 permit tcp host 10.10.100.15 host 10.10.110.10 eq 1521 (5 m
+atches)
+    20 permit tcp host 10.10.99.10 host 10.10.110.10 eq 22
+    30 deny ip any any log (7 matches)
+Extended IP access list CISCO-CWA-URL-REDIRECT-ACL
+    100 deny udp any any eq domain
+    101 deny tcp any any eq domain
+    102 deny udp any eq bootps any
+    103 deny udp any any eq bootpc
+    104 deny udp any eq bootpc any
+    105 permit tcp any any eq www
+Extended IP access list preauth_ipv4_acl (per-user)
+    10 permit udp any any eq domain
+    20 permit tcp any any eq domain
+    30 permit udp any eq bootps any
+    40 permit udp any any eq bootpc
+    50 permit udp any eq bootpc any
+    60 deny ip any any
+SW-CORE#
+SW-CORE#
+SW-CORE#
