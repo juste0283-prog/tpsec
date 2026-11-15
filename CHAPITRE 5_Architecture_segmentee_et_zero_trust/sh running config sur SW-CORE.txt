@@ -1,0 +1,167 @@
+SW-CORE#terminal length 0
+SW-CORE#sh running-config
+Building configuration...
+
+Current configuration : 4382 bytes
+!
+! Last configuration change at 17:39:25 UTC Sat Nov 14 2026
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW-CORE
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ negotiation auto
+!
+interface GigabitEthernet0/1
+ switchport access vlan 20
+ switchport mode access
+ negotiation auto
+!
+interface GigabitEthernet0/2
+ switchport access vlan 100
+ switchport mode access
+ negotiation auto
+
+interface GigabitEthernet0/3
+ switchport access vlan 110
+ switchport mode access
+ negotiation auto
+!
+interface GigabitEthernet1/0
+ negotiation auto
+!
+interface GigabitEthernet1/1
+ negotiation auto
+!
+interface GigabitEthernet1/2
+ negotiation auto
+!
+interface GigabitEthernet1/3
+ negotiation auto
+!
+interface Vlan20
+ ip address 10.10.20.1 255.255.255.0
+ ip access-group ACL-GUICHETS-IN in
+!
+interface Vlan100
+ ip address 10.10.100.1 255.255.255.0
+!
+interface Vlan110
+ ip address 10.10.110.1 255.255.255.0
+ ip access-group ACL-SENSIBLE-OUT out
+!
+ip forward-protocol nd
+!
+ip http server
+!
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+!
+ip access-list extended ACL-GUICHETS-IN
+ remark F04 guichets vers serveur applicatif cpre banking
+ permit tcp 10.10.20.0 0.0.0.255 host 10.10.100.15 eq 443
+ remark F05 resolution DNS interne
+ permit udp 10.10.20.0 0.0.0.255 host 10.10.100.10 eq domain
+ permit tcp 10.10.20.0 0.0.0.255 host 10.10.100.10 eq domain
+ remark F10 diagnostic vers passerelle 
+ permit icmp 10.10.20.0 0.0.0.255 host 10.10.20.1 echo
+ remark Refus par defaut journalise
+ deny   ip any any log
+ip access-list extended ACL-SENSIBLE-OUT
+ remark F03 serveur applicatif vers base core banking
+ permit tcp host 10.10.100.15 host 10.10.110.10 eq 1521
+ remark F07 administration depuis le bastion
+ permit tcp host 10.10.99.10 host 10.10.110.10 eq 22
+ remark refus par defaut journalise
+ deny   ip any any log
+ip access-list extended ACL-SERVEURS-IN
+ remark F reponses vers guichets
+ permit tcp host 10.10.100.15 eq 443 10.10.20.0 0.0.0.255 established
+ remark F03 serveur applicatif vers base
+ permit tcp host 10.10.100.15 host 10.10.110.10 eq 1521
+ remark refus par defaut journalise
+ deny   ip any any log
+!
+!
+!
+!
+!
+control-plane
+!
+banner exec ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+banner incoming ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+banner login ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+!
+line con 0
+line aux 0
+line vty 0 4
+!
+!!
+!
+end
+
+SW-CORE#
+SW-CORE#
+SW-CORE#
