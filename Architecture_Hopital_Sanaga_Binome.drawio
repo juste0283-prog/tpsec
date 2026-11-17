@@ -1,0 +1,91 @@
+<mxfile host="app.diagrams.net" agent="DAT Sanaga">
+  <diagram id="arch-sanaga" name="Architecture logique">
+    <mxGraphModel dx="1593" dy="963" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1680" pageHeight="1180" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="internet" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e1;strokeColor=#ba893a;fontFamily=Arial;fontSize=14;align=center;verticalAlign=middle;spacing=9;" value="INTERNET / CHU de Yaoundé / prestataire" vertex="1">
+          <mxGeometry height="65" width="500" x="535" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="fwe" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fde5e5;strokeColor=#c76060;fontFamily=Arial;fontSize=14;align=center;verticalAlign=middle;spacing=9;" value="FW-PÉRIMÈTRE&#xa;Contrôle entrant / sortant" vertex="1">
+          <mxGeometry height="76" width="250" x="660" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="dmz" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff0d9;strokeColor=#c58b38;fontFamily=Arial;fontSize=14;align=center;verticalAlign=middle;spacing=9;" value="VLAN 210 — DMZ PARTENAIRES&#xa;10.50.210.0/24&#xa;Télémédecine .10 | Bastion tiers .20" vertex="1">
+          <mxGeometry height="100" width="360" x="1150" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="fwi" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fddfdf;strokeColor=#b74e4e;fontFamily=Arial;fontSize=14;align=center;verticalAlign=middle;spacing=9;" value="FW-INT&#xa;Filtrage interzones — DENY + LOG&#xa;Passerelles 10.50.VLAN.1" vertex="1">
+          <mxGeometry height="105" width="280" x="665" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="v10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6f1f7;strokeColor=#537a99;fontFamily=Arial;fontSize=14;align=center;verticalAlign=middle;spacing=9;" value="VLAN 10 — SOIGNANTS&#xa;10.50.10.0/24&#xa;Postes médicaux (120 partagés)" vertex="1">
+          <mxGeometry height="114" width="290" x="20" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="v20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6f1f7;strokeColor=#537a99;fontFamily=Arial;fontSize=14;align=center;verticalAlign=middle;spacing=9;" value="VLAN 20 — ADMIN / FINANCE&#xa;10.50.20.0/24&#xa;Admissions, comptabilité et paie" vertex="1">
+          <mxGeometry height="114" width="290" x="375" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="v40" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6f1f7;strokeColor=#537a99;fontFamily=Arial;fontSize=14;align=center;verticalAlign=middle;spacing=9;" value="VLAN 40 — VIDÉOSURVEILLANCE&#xa;10.50.40.0/24&#xa;Caméras → NVR .10" vertex="1">
+          <mxGeometry height="114" width="290" x="690" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="v50" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6f1f7;strokeColor=#537a99;fontFamily=Arial;fontSize=14;align=center;verticalAlign=middle;spacing=9;" value="VLAN 50 — INVITÉS&#xa;10.50.50.0/24&#xa;Wi-Fi : Internet uniquement" vertex="1">
+          <mxGeometry height="114" width="290" x="1005" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="v99" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6f1f7;strokeColor=#537a99;fontFamily=Arial;fontSize=14;align=center;verticalAlign=middle;spacing=9;" value="VLAN 99 — ADMINISTRATION&#xa;10.50.99.0/24&#xa;Bastion .10 | Syslog .30" vertex="1">
+          <mxGeometry height="114" width="290" x="1320" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="v100" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6f1f7;strokeColor=#537a99;fontFamily=Arial;fontSize=14;align=center;verticalAlign=middle;spacing=9;" value="VLAN 100 — SERVEURS&#xa;10.50.100.0/24&#xa;Patients .10 | Labo .20 | AD/DNS .30" vertex="1">
+          <mxGeometry height="114" width="290" x="60" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="v110" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1e5fa;strokeColor=#8668a1;fontFamily=Arial;fontSize=14;align=center;verticalAlign=middle;spacing=9;" value="VLAN 110 — DONNÉES SENSIBLES&#xa;10.50.110.0/24&#xa;Base patients .10" vertex="1">
+          <mxGeometry height="114" width="290" x="375" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="v120" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6f1f7;strokeColor=#537a99;fontFamily=Arial;fontSize=14;align=center;verticalAlign=middle;spacing=9;" value="VLAN 120 — IMAGERIE&#xa;10.50.120.0/24&#xa;PACS .10 | Scanner .21 | Radios" vertex="1">
+          <mxGeometry height="114" width="290" x="690" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="v130" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1e5fa;strokeColor=#8668a1;fontFamily=Arial;fontSize=14;align=center;verticalAlign=middle;spacing=9;" value="VLAN 130 — BIOMÉDICAL / LABO&#xa;10.50.130.0/24&#xa;Concentrateur .5 | Automates / moniteurs" vertex="1">
+          <mxGeometry height="114" width="290" x="1005" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="note" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f6f6f6;strokeColor=#888888;fontFamily=Arial;fontSize=14;align=center;verticalAlign=middle;spacing=9;" value="RÈGLES D’ARCHITECTURE&#xa;• Aucun routage direct entre VLAN&#xa;• F01–F21 : autorisations explicites uniquement&#xa;• F16 : administration depuis le bastion&#xa;• Flux internes F07 / F09 / F15 filtrés sur commutateurs&#xa;• Biomédical sans accès Internet" vertex="1">
+          <mxGeometry height="225" width="290" x="1320" y="725" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="internet" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#66819c;" target="fwe" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="fwe" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#66819c;" target="fwi" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="fwe" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#66819c;" target="dmz" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="fwi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#66819c;" target="v10" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e20" edge="1" parent="1" source="fwi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#66819c;" target="v20" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e40" edge="1" parent="1" source="fwi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#66819c;" target="v40" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e50" edge="1" parent="1" source="fwi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#66819c;" target="v50" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e99" edge="1" parent="1" source="fwi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#66819c;" target="v99" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e100" edge="1" parent="1" source="fwi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#66819c;" target="v100" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e110" edge="1" parent="1" source="fwi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#66819c;" target="v110" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e120" edge="1" parent="1" source="fwi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#66819c;" target="v120" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e130" edge="1" parent="1" source="fwi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#66819c;" target="v130" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edmz" edge="1" parent="1" source="fwi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#66819c;dashed=1;dashPattern=6 4;" target="dmz" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
